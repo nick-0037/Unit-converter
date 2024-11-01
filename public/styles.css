@@ -1,0 +1,54 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  color: #050e8d;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  max-width: 300px;
+  background-color: #fff;
+  gap: 20px;
+}
+
+button {
+  padding: 8px 12px;
+  background-color: #0e0685;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2a2cb1;
+}
+
+.value {
+  display: flex;
+}
+
+.value input {
+  width: 200px;
+  padding: 8px;
+}
+
+.from {
+  display: flex;
+  gap: 20px;
+}
+
+.to {
+  display: flex;
+  gap: 20px;
+}
