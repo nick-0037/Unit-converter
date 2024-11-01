@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  
+  <h1>Temperature Converter</h1>
+  <form id="conversionForm" onsubmit="return handleFormSubmit(event)">
+    <div class="value">
+      <input type="number"
+      name="value"
+      placeholder="Enter Value"
+      required>
+    </div>
+    <div class="from">
+      <p>from:</p>
+      <select name="from_unit" required>
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+      </select>
+    </div>
+    <div class="to">
+      <p>to:</p>
+      <select name="to_unit" required>
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+      </select>
+    </div>
+    <button type="submit">Convert</button>
+  </form>
+  <div id="result"></div>
+
+  <script>
+    async function handleFormSubmit(event) {
+      event.preventDefault()
+
+      const form =document.getElementById('conversionForm')
+      const formData = new FormData(form)
+
+      const data = Object.fromEntries(formData.entries())
+
+      try {
+        const response = await fetch('/temperature', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+
+        if(!response.ok) {
+          throw new Error('Error in the conversion')
+        }
+
+        const { result, to_unit } = await response.json()
+        document.getElementById('result').innerText = `Converted Value: ${result} ${to_unit}`
+      } catch(err){
+        console.error('Error', err)
+        document.getElementById('result').innerText = 'Error converting, try again.'
+      }
+    }
+  </script>
+</body>
+</html>
